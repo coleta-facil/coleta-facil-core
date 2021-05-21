@@ -1,0 +1,27 @@
+$breakpoints: (
+  xs: 576px,
+  sm: 778px,
+  md: 1024px,
+);
+
+@mixin on-screen-xs {
+  @media (max-width: map-get($breakpoints,"xs")) {
+    @content;
+  }
+}
+
+@mixin on-screen-sm {
+  @media (max-width: map-get($breakpoints,"sm")) {
+    @content;
+  }
+}
+
+@mixin on-screen-md {
+  @media (max-width: map-get($breakpoints,"md")) {
+    @content;
+  }
+}
+
+@mixin base-transition {
+  transition: all 0.2s ease;
+}
