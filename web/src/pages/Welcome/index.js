@@ -1,6 +1,7 @@
 import "./style.scss";
 import { useHistory, Link } from "react-router-dom";
 
+import Header from "../../components/Header";
 import PageWrapper from "../../components/PageWrapper";
 import logo from "../../assets/icons/logo.svg";
 import welcomeImage from "../../assets/icons/welcome-image.svg";
@@ -11,11 +12,13 @@ function Home() {
   return (
     <PageWrapper footerImage>
       <div className="home-page page-content">
-        <Link to="#">Dicas de Reciclagem</Link>
-        <Link to="#">Saiba Mais</Link>
-        <button className="button" onClick={() => history.push("/login")}>
-          Entrar
-        </button>
+        <Header>
+          <Link to="#">Dicas de Reciclagem</Link>
+          <Link to="#">Saiba Mais</Link>
+          <button className="button" onClick={() => history.push("/login")}>
+            Entrar
+          </button>
+        </Header>
 
         <main>
           <article className="aside-article">
