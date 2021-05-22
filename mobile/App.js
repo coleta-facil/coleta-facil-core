@@ -4,6 +4,7 @@ import { LogBox, StyleSheet, Text, View } from "react-native";
 import firebase from "firebase/app";
 import * as Font from "expo-font";
 import * as Updates from "expo-updates";
+import Routes from "./src/routes";
 
 import { firebaseConfig } from "./src/constants/config";
 
@@ -57,7 +58,7 @@ export default function App() {
   };
 
   return assetsLoaded ? (
-    <View/>
+    <Routes />
   ) : (
     <View style={styles.container}>
       <Text>{updateMsg}</Text>
