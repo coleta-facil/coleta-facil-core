@@ -28,7 +28,7 @@ const Cadastro = () => {
     var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     if (!reg.test(email) || pass !== passConf) alert("Dados inválidos!");
     else {
-      history.push("/routes");
+      history.push("/dispositivos");
     }
   }
 
@@ -36,7 +36,7 @@ const Cadastro = () => {
     <PageWrapper footerImage>
       <div className="login-page page-content">
         <Header justifyContent="flex-start">
-          <Link className="link-go-back" to="/routes">
+          <Link className="link-go-back" to="/dispositivos">
             <img src={voltar} className="icon-go-back" alt="back" />
           </Link>
         </Header>
@@ -46,8 +46,8 @@ const Cadastro = () => {
             <img src={logo} className="login-icon" alt="logo" />
             <div>
               <h3>
-                Faça o cadastro de novos usuários para acessarem o sistema e facilite a
-                divisão do trabalho.
+                Faça o cadastro de novos usuários para acessarem o sistema e facilite a divisão do
+                trabalho.
               </h3>
             </div>
           </div>
