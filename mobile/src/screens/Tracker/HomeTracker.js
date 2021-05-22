@@ -35,7 +35,7 @@ const HomeTracker = () => {
   }, []);
 
   const toggleLoc = () => {
-    setActivedLoc((prev) => !prev);
+    setActivedLoc(true);
   };
 
   return (

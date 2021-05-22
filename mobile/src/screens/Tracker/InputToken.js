@@ -72,8 +72,8 @@ const InputToken = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <RectButton onPress={goBack} style={{ position: "absolute", left: 0, top: 0 }}>
-          <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
+        <RectButton onPress={goBack} style={{ position: "absolute", left: 15, top: 30 }}>
+          <MaterialCommunityIcons name="arrow-left" size={30} color="black" />
         </RectButton>
         <View style={[styles.wrappedView, { alignItems: "center" }]}>
           <Text style={styles.title}>Digite o código de registro abaixo.</Text>

@@ -23,8 +23,8 @@ const WelcomeTracker = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <RectButton onPress={goBack} style={{ position: "absolute", left: 15, top: 50 }}>
-        <MaterialCommunityIcons name="arrow-left" size={40} color="black" />
+      <RectButton onPress={goBack} style={{ position: "absolute", left: 15, top: 30 }}>
+        <MaterialCommunityIcons name="arrow-left" size={30} color="black" />
       </RectButton>
       <ScreenTitle>Rastreador de coletores</ScreenTitle>
       <LogoColetaFacil width={200} height={200} />
