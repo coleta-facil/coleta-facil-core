@@ -40,7 +40,7 @@ const Intro = () => {
         </RectButton>
         <Text style={styles.title}>Rastreador</Text>
         <Text style={styles.subTitle}>
-          Acesse o rastreador para enviar a localização do seu caminhão.
+          Acesse o rastreador para compartilhar sua localização enquanto realiza a coleta.
         </Text>
       </View>
     </View>
