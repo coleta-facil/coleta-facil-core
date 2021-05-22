@@ -1,0 +1,25 @@
+@import "../../assets/styles/mixins";
+
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .page {
+    flex: 1;
+    padding: 0 2rem;
+  }
+
+  .img-footer {
+    min-height: 80px;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  @include on-screen-sm {
+    .content {
+      padding: 0 1rem;
+    }
+  }
+}
