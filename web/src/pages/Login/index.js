@@ -9,6 +9,9 @@ import logo from "../../assets/icons/logo.svg";
 import voltar from "../../assets/icons/back.svg";
 import BaseButton from "../../components/BaseButton";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 const Login = () => {
   const history = useHistory();
 
@@ -22,10 +25,15 @@ const Login = () => {
   async function submitForm(event) {
     event.preventDefault();
     var email = document.getElementById("email").value;
+    var pass = document.getElementById("pass").value;
 
     var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     if (!reg.test(email)) alert("Email inválido!");
     else {
+      const auth = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, pass);
+      console.log(auth);
       history.push("/routes");
     }
   }

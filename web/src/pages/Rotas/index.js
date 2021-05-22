@@ -44,12 +44,10 @@ const Rotas = () => {
     <PageWrapper footerImage>
       <div className="rotas-page page-content">
         <Header>
-          <button className="button" onClick={() => history.push("/cadastro")}>
+          <BaseButton onClick={() => history.push("/cadastro")}>
             Cadastrar Usuário
-          </button>
-          <button className="button" onClick={() => history.push("/login")}>
-            Sair
-          </button>
+          </BaseButton>
+          <BaseButton onClick={() => history.push("/login")}>Sair</BaseButton>
         </Header>
 
         <div className="rotas-body">
@@ -132,7 +130,7 @@ const Rotas = () => {
               type="hidden"
               name="code"
               id="code"
-              value={randomCode(10)}
+              value={randomCode(4)}
               onChange={handleInputChange}
               readOnly
             />
