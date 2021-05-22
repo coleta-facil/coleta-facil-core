@@ -4,12 +4,26 @@ import { RectButton } from "react-native-gesture-handler";
 import { Theme } from "../constants/theme";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 
 const Intro = () => {
+  const navigation = useNavigation();
+
+  const handleGoMonitor = () => {
+    navigation.navigate("WelcomeMonitor");
+  };
+
+  const handleGoTracker = () => {
+    navigation.navigate("WelcomeTracker");
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.viewBase, styles.viewTop]}>
-        <RectButton style={[styles.btnActions, styles.btnActionsTop]}>
+        <RectButton
+          onPress={handleGoMonitor}
+          style={[styles.btnActions, styles.btnActionsTop]}
+        >
           <MaterialCommunityIcons name="routes" size={60} color="white" />
         </RectButton>
         <Text style={styles.title}>Rotas</Text>
@@ -18,7 +32,10 @@ const Intro = () => {
         </Text>
       </View>
       <View style={styles.viewBase}>
-        <RectButton style={[styles.btnActions, styles.btnActionsBottom]}>
+        <RectButton
+          onPress={handleGoTracker}
+          style={[styles.btnActions, styles.btnActionsBottom]}
+        >
           <MaterialCommunityIcons name="dump-truck" size={60} color="white" />
         </RectButton>
         <Text style={styles.title}>Rastreador</Text>
