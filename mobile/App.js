@@ -5,6 +5,7 @@ import firebase from "firebase/app";
 import * as Font from "expo-font";
 import * as Updates from "expo-updates";
 import Routes from "./src/routes";
+import { CommonProvider } from "./src/contexts/commonContext";
 
 import { firebaseConfig } from "./src/constants/config";
 
@@ -58,7 +59,9 @@ export default function App() {
   };
 
   return assetsLoaded ? (
-    <Routes />
+    <CommonProvider>
+      <Routes />
+    </CommonProvider>
   ) : (
     <View style={styles.container}>
       <Text>{updateMsg}</Text>
