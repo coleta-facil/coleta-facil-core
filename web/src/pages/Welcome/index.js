@@ -13,8 +13,6 @@ function Home() {
     <PageWrapper footerImage>
       <div className="home-page page-content">
         <Header>
-          <Link to="#">Dicas de Reciclagem</Link>
-          <Link to="#">Saiba Mais</Link>
           <button className="button" onClick={() => history.push("/login")}>
             Entrar
           </button>
