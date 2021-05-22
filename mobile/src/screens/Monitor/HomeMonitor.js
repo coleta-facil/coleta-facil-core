@@ -27,11 +27,13 @@ import Modal from "react-native-modalbox";
 import firebase from "firebase/app";
 import "firebase/database";
 import LogoColetaFacil from "../../assets/icons/LogoColetaFacil";
+import Recycle from "../../assets/icons/Recycle";
+import { useNavigation } from "@react-navigation/core";
 
 const cards = [
   {
     icon: <Feather name="trash-2" size={24} color="white" />,
-    text: "Descarte seu lixo de forma certa.",
+    text: "Dicas de separação do lixo.",
   },
   {
     icon: <MaterialCommunityIcons name="trophy-broken" size={24} color="white" />,
@@ -51,10 +53,12 @@ const Home = () => {
   const [numberTrucksOn, setNumberTrucksOn] = useState(0);
 
   const calledForeground = useRef();
+  const navigation = useNavigation();
 
   const { locationUser, callForegroundGeolocation } = useContext(CommonContext);
 
   const modalRef = useRef();
+  const modal2Ref = useRef();
   const mapRef = useRef();
 
   useEffect(() => {
@@ -94,6 +98,12 @@ const Home = () => {
     });
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      modal2Ref?.current.open();
+    }, 1000);
+  }, []);
+
   const centerFollowMap = () => {
     let region = {
       latitude: locationUser.latitude,
@@ -108,6 +118,10 @@ const Home = () => {
     setIconModal(<Entypo name="" size={40} color="black" />);
     setTextModal(card.text);
     modalRef?.current.open();
+  };
+
+  const goNavigate = () => {
+    navigation.navigate("SelectiveCollect");
   };
 
   return (
@@ -194,6 +208,36 @@ const Home = () => {
           </SafeAreaView>
         </ScrollView>
       </Modal>
+      <Modal
+        style={styles.modal2}
+        position={"center"}
+        swipeToClose={false}
+        ref={modal2Ref}
+        swipeArea={100}
+        backdropPressToClose={false}
+      >
+        <View style={styles.viewWrappedModal2}>
+          <Recycle width={120} width={120} />
+          <View style={{ alignItems: "center" }}>
+            <Text style={styles.textCollect}>
+              Você sabia que sua cidade possui coleta seletiva?
+            </Text>
+            <RectButton onPress={goNavigate} style={styles.btnSaberMais}>
+              <Text style={{ fontFamily: "PopBold", color: Theme.WHITE, fontSize: 18 }}>
+                Quero saber mais
+              </Text>
+            </RectButton>
+            <RectButton
+              onPress={() => modal2Ref?.current.close()}
+              style={{ marginTop: 15 }}
+            >
+              <Text style={{ fontFamily: "PopRegular", color: "#FF1111", fontSize: 18 }}>
+                Dispensar
+              </Text>
+            </RectButton>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -213,6 +257,15 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     paddingLeft: 10,
     backgroundColor: "#fff",
+  },
+  viewWrappedModal2: {
+    alignItems: "center",
+  },
+  modal2: {
+    height: 500,
+    width: 350,
+    borderRadius: 8,
+    backgroundColor: Theme.WHITE,
   },
   btnTopModal: {
     width: 70,
@@ -276,6 +329,22 @@ const styles = StyleSheet.create({
   textTrucksOn: {
     fontFamily: "PopBold",
     fontSize: 14,
+  },
+  textCollect: {
+    fontFamily: "PopBold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  btnSaberMais: {
+    marginTop: 50,
+    elevation: 15,
+    height: 60,
+    width: 250,
+    borderRadius: 8,
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Theme.PRIMARY,
   },
 });
 

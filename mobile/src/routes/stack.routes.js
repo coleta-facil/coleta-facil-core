@@ -8,6 +8,7 @@ import { Theme } from "../constants/theme";
 import Intro from "../screens/Intro";
 import HomeTracker from "../screens/Tracker/HomeTracker";
 import InputToken from "../screens/Tracker/InputToken";
+import SelectiveCollect from "../screens/Monitor/SelectiveCollect";
 
 const StackRoutes = createStackNavigator();
 
@@ -24,6 +25,7 @@ const AppRoutes = () => (
     <StackRoutes.Screen name="WelcomeMonitor" component={WelcomeMonitor} />
     <StackRoutes.Screen name="WelcomeTracker" component={WelcomeTracker} />
     <StackRoutes.Screen name="HomeMonitor" component={AuthRoutes} />
+    <StackRoutes.Screen name="SelectiveCollect" component={SelectiveCollect} />
     <StackRoutes.Screen name="InputToken" component={InputToken} />
     <StackRoutes.Screen name="HomeTracker" component={HomeTracker} />
     <StackRoutes.Screen name="Schedules" component={AuthRoutes} />
