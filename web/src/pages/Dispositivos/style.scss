@@ -1,0 +1,11 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.disp-page {
+  .body {
+    text-align: center;
+  }
+  .disp-icon {
+    align-content: center;
+  }
+}

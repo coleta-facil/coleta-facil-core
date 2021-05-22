@@ -1,9 +1,19 @@
+import {
+  apiKey,
+  authDomain,
+  databaseURL,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+} from "@env";
+
 export const firebaseConfig = {
-  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  databaseURL: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  projectId: "XXXXXXXXXXXXXXX",
-  storageBucket: "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  messagingSenderId: "XXXXXXXXXXXXX",
-  appId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  apiKey,
+  authDomain,
+  databaseURL,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
 };
