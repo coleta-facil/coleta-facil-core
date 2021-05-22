@@ -7,6 +7,9 @@ import Header from "../../components/Header";
 import BaseButton from "../../components/BaseButton";
 import logo from "../../assets/icons/logo.svg";
 
+import firebase from "firebase/app";
+import "firebase/database";
+
 const emptyFormDevice = { name: "", code: "" };
 
 const Rotas = () => {
@@ -21,8 +24,18 @@ const Rotas = () => {
   }
 
   async function fetchDevices() {
-    //const response = await  getDevices(); //firebase
-    //setDevices([...response.data]);
+    await firebase
+      .database()
+      .ref("devices")
+      .on("value", (data) => {
+        const dataDB = data.val();
+        if (dataDB) {
+          const arrrayDevices = Object.keys(dataDB).map((dev) => {
+            return dataDB[dev];
+          });
+          setDevices([...arrrayDevices]);
+        }
+      });
   }
 
   async function submitForm(event) {
@@ -30,7 +43,7 @@ const Rotas = () => {
     try {
       if (!formDevice.name) throw new Error("Dados inválidos!");
       formDevice.code = randomCode;
-      // await addDevice(formDevice) //firebase
+      await firebase.database().ref("devices").push(formDevice);
       setDevices((prev) => [...prev, { ...formDevice }]);
       setFormDevice(emptyFormDevice);
       setUpdateCode(true);
@@ -53,7 +66,9 @@ const Rotas = () => {
       <div className="rotas-page page-content">
         <Header>
           <img src={logo} className="logo" alt="logo" />
-          <BaseButton onClick={() => history.push("/cadastro")}>Cadastrar usuário</BaseButton>
+          <BaseButton onClick={() => history.push("/cadastro")}>
+            Cadastrar usuário
+          </BaseButton>
           <BaseButton type="submit" variant="logoff">
             Sair
           </BaseButton>
