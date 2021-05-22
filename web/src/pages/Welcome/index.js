@@ -1,5 +1,5 @@
 import "./style.scss";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Header from "../../components/Header";
 import PageWrapper from "../../components/PageWrapper";

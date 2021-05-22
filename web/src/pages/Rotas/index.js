@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import "../../assets/styles/global.scss";
 import "./style.scss";
@@ -22,7 +22,6 @@ const Rotas = () => {
   async function submitForm(event) {
     event.preventDefault();
     var placa = document.getElementById("placa").value;
-    var rota = document.getElementById("rota").value;
     var codigo = document.getElementById("code").value;
 
     const regexPlaca = /^[a-zA-Z]{3}[0-9]{4}$/;

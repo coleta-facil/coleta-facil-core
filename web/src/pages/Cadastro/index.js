@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./style.scss";
+import "../Login/style.scss";
 
 import Header from "../../components/Header";
 import PageWrapper from "../../components/PageWrapper";
@@ -9,7 +9,7 @@ import logo from "../../assets/icons/logo.svg";
 import voltar from "../../assets/icons/back.svg";
 import BaseButton from "../../components/BaseButton";
 
-const Login = () => {
+const Cadastro = () => {
   const history = useHistory();
 
   const [form, setForm] = useState({ email: "", password: "" });
@@ -21,10 +21,12 @@ const Login = () => {
 
   async function submitForm(event) {
     event.preventDefault();
-    var email = document.getElementById("email").value;
+    var email = document.getElementById("emailCad").value;
+    var pass = document.getElementById("passCad").value;
+    var passConf = document.getElementById("confpassCad").value;
 
     var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    if (!reg.test(email)) alert("Email inválido!");
+    if (!reg.test(email) || pass !== passConf) alert("Dados inválidos!");
     else {
       history.push("/routes");
     }
@@ -34,7 +36,7 @@ const Login = () => {
     <PageWrapper footerImage>
       <div className="login-page page-content">
         <Header justifyContent="flex-start">
-          <Link className="link-go-back" to="/">
+          <Link className="link-go-back" to="/routes">
             <img src={voltar} className="icon-go-back" alt="back" />
           </Link>
         </Header>
@@ -43,33 +45,46 @@ const Login = () => {
           <div className="login-body">
             <img src={logo} className="login-icon" alt="logo" />
             <div>
-              <h1>Acesse o painel gerencial da sua cidade.</h1>
+              <h3>
+                Faça o cadastro de novos usuários e facilite a divisão do
+                trabalho.
+              </h3>
             </div>
           </div>
 
           <div className="login-panel">
-            <h2>Acesse sua Conta</h2>
+            <h2>Cadastre Novo Usuário</h2>
             <form onSubmit={submitForm} className="form-group">
               <input
                 type="text"
-                name="email"
-                id="email"
-                placeholder="Login"
-                value={form.email}
+                name="emailCad"
+                id="emailCad"
+                placeholder="Email"
+                value={form.emailCad}
                 onChange={handleInputChange}
               />
 
               <input
                 type="password"
-                name="password"
-                id="pass"
-                placeholder="Senha"
+                name="passwordCad"
+                id="passCad"
+                placeholder="Senha (mín. 8 caracteres)"
                 minLength="8"
-                value={form.password}
+                value={form.passwordCad}
                 onChange={handleInputChange}
               />
 
-              <BaseButton type={"submit"}>Entrar</BaseButton>
+              <input
+                type="password"
+                name="confpasswordCad"
+                id="confpassCad"
+                placeholder="Confirme a Senha "
+                minLength="8"
+                value={form.confpasswordCad}
+                onChange={handleInputChange}
+              />
+
+              <BaseButton type={"submit"}>Cadastrar</BaseButton>
             </form>
           </div>
         </div>
@@ -78,4 +93,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Cadastro;
