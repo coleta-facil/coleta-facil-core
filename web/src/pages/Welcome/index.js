@@ -1,8 +1,9 @@
 import "./style.scss";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Header from "../../components/Header";
 import PageWrapper from "../../components/PageWrapper";
+import BaseButton from "../../components/BaseButton";
 import logo from "../../assets/icons/logo.svg";
 import welcomeImage from "../../assets/icons/welcome-image.svg";
 
@@ -13,28 +14,21 @@ function Home() {
     <PageWrapper footerImage>
       <div className="home-page page-content">
         <Header>
-          <Link to="#">Dicas de Reciclagem</Link>
-          <Link to="#">Saiba Mais</Link>
-          <button className="button" onClick={() => history.push("/login")}>
-            Entrar
-          </button>
+          <BaseButton onClick={() => history.push("/login")}>Entrar</BaseButton>
         </Header>
 
         <main>
           <article className="aside-article">
             <img src={logo} className="logo" alt="logo" />
 
-            <h1 className="title">
-              Gerencie facilmente a coleta de lixo da sua cidade.
-            </h1>
+            <h1 className="title">Gerencie facilmente a coleta de lixo da sua cidade.</h1>
             <p className="paragraph">
-              Uma inovação! Um painel gerencial pra você cadastrar, editar,
-              deletar e organizar as rotas, datas e horários que os caminhões
-              irão funcionar.
+              Uma inovação! Um painel gerencial pra você cadastrar, editar, deletar e organizar as
+              rotas, datas e horários que os caminhões irão funcionar.
             </p>
             <p className="paragraph">
-              Reduza engarrafamentos e agilize o trabalho de quem se esforça pra
-              deixar sua cidade mais limpa!
+              Reduza engarrafamentos e agilize o trabalho de quem se esforça pra deixar sua cidade
+              mais limpa!
             </p>
           </article>
 

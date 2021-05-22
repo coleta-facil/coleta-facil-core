@@ -1,0 +1,78 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.login-page {
+  .link-go-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+
+    &:hover {
+      border-radius: 50%;
+      background-color: rgb(228, 228, 228);
+    }
+
+    .icon-go-back {
+      height: 6vmin;
+      min-height: 50px;
+      max-height: 60px;
+      cursor: pointer;
+    }
+  }
+
+  .login-body {
+    float: right;
+    padding: 5rem;
+  }
+
+  .login-icon {
+    height: 6vmin;
+    pointer-events: none;
+    float: right;
+  }
+}
+
+.login-panel {
+  float: left;
+  width: 30%;
+  min-width: 420px;
+  padding: 2%;
+  background-color: $dark-green;
+  border-radius: 3%;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin: 5%;
+
+  .title {
+    margin-bottom: 1.5rem;
+    color: $light;
+  }
+
+  > form.form-group {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+
+    input {
+      font-weight: 500;
+      font-size: 15px;
+      height: 42px;
+      width: 390px;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      background-color: #fff;
+
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    button {
+      margin: 0 auto;
+      margin-top: 0.5rem;
+    }
+  }
+}
