@@ -58,7 +58,7 @@ const HomeTracker = () => {
         </View>
       )}
       <RectButton
-        onPress={toggleLoc}
+        onPress={() => toggleLoc()}
         style={[
           styles.btnActiveLoc,
           {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   viewInfo: {
-    width: "90s%",
+    width: "90%",
     height: 60,
     backgroundColor: "#fff",
     justifyContent: "center",
