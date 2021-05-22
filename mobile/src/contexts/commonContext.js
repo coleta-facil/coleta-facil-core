@@ -14,10 +14,6 @@ export const CommonProvider = ({ children }) => {
 
   const watcher = useRef();
 
-  useEffect(() => {
-    return (watcher.current = false);
-  }, []);
-
   async function callForegroundGeolocation(trackerMode) {
     const { status } = await Location.requestForegroundPermissionsAsync();
     console.log(status);
