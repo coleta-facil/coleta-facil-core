@@ -46,14 +46,14 @@ const Cadastro = () => {
             <img src={logo} className="login-icon" alt="logo" />
             <div>
               <h3>
-                Faça o cadastro de novos usuários e facilite a divisão do
-                trabalho.
+                Faça o cadastro de novos usuários para acessarem o sistema e facilite a
+                divisão do trabalho.
               </h3>
             </div>
           </div>
 
           <div className="login-panel">
-            <h2>Cadastre Novo Usuário</h2>
+            <h2>Cadastro de usuário</h2>
             <form onSubmit={submitForm} className="form-group">
               <input
                 type="text"

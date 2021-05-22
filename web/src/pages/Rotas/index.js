@@ -12,7 +12,7 @@ import BaseButton from "../../components/BaseButton";
 const Rotas = () => {
   const history = useHistory();
 
-  const [form, setForm] = useState({ placa: "", rota: "", code: "" });
+  const [form, setForm] = useState({ deviceName: "", rota: "", code: "" });
 
   function handleInputChange(event) {
     const { value, name } = event.target;
@@ -21,12 +21,12 @@ const Rotas = () => {
 
   async function submitForm(event) {
     event.preventDefault();
-    var placa = document.getElementById("placa").value;
+    var deviceName = document.getElementById("deviceName").value;
     var codigo = document.getElementById("code").value;
 
-    const regexPlaca = /^[a-zA-Z]{3}[0-9]{4}$/;
+    //const regexPlaca = /^[a-zA-Z]{3}[0-9]{4}$/;
 
-    if (!regexPlaca.test(placa)) alert("Dados inválidos!");
+    if (!deviceName) alert("Dados inválidos!");
     else {
       alert(codigo);
     }
@@ -35,7 +35,7 @@ const Rotas = () => {
   const randomCode = (len) => {
     let code = "";
     do {
-      code += Math.random().toString(36).substr(2);
+      code += Math.random().toString(36).substr(2).toUpperCase();
     } while (code.length < len);
     return code;
   };
@@ -44,98 +44,52 @@ const Rotas = () => {
     <PageWrapper footerImage>
       <div className="rotas-page page-content">
         <Header>
+          <img src={logo} className="logo" alt="logo" />
           <BaseButton onClick={() => history.push("/cadastro")}>
-            Cadastrar Usuário
+            Cadastrar usuário
           </BaseButton>
-          <BaseButton onClick={() => history.push("/login")}>Sair</BaseButton>
+          <BaseButton type="submit" variant="logoff">
+            Sair
+          </BaseButton>
         </Header>
 
-        <div className="rotas-body">
-          <img src={logo} className="logo" alt="logo" />
-          <ol>
-            <li>
-              1°{")"} Entre{" "}
-              <a
-                className="link-routes"
-                href="https://www.maps.ie/map-my-route/"
-              >
-                aqui
-              </a>{" "}
-              para criar uma rota.
-            </li>
-            <li>2°{")"} Se localize no mapa! Ache a cidade de Araguaína.</li>
-            <li>3°{")"} Escolha "Driving" na opção TRAVEL MODE.</li>
-            <li>
-              4°{")"} Se preferir outro tipo de mapa, existem outras opções no
-              campo VIEW.
-            </li>
-            <li>
-              5°{")"} Depois disso, trace a rota do caminhão. É só clicar no
-              mapa os lugares pelos quais o caminhão do lixo passa!
-            </li>
-            <li>
-              6°{")"} Quando a rota estiver completa, você precisa salvar a rota
-              no botão "Save Route".
-            </li>
-            <li>
-              7°{")"} Coloque como título o bairro ou região que a rota abrange.{" "}
-            </li>
-            <li>
-              8°{")"} E como descrição, os dias que ele passa por aquele lugar.
-            </li>
-            <li>
-              9°{")"} Faça o download na opção "Google Earth KML" e suba o
-              arquivo no campo abaixo!
-            </li>
-          </ol>
-          <br />
-          <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
-          <input className="button-file" type="file" /> <br /> <br />
-          Lembre-se que: <br />
-          <ul>
-            <li>
-              - Se precisar voltar alguma ação, a opção ao lado do mapa "Undo
-              Last Leg", faz isso para você.
-            </li>
-            <li>
-              - A opção "Out and Back", faz o trabalho de ir e voltar pela mesma
-              rota.
-            </li>
-            <li>- "Loop Route" faz a rota repetir.</li>
-            <li>- E "Remove All", remove todas as suas marcações!</li>
-          </ul>
-        </div>
-
-        <div className="login-panel">
-          <h2>Cadastrar Caminhão</h2>
+        <div className="form-register-routes">
+          <h2>Cadastro de dispositivo</h2>
           <form onSubmit={submitForm} className="form-group">
+            <label>Nome do dispositivo(apelido)</label>
             <input
               type="text"
               name="placa"
               id="placa"
-              placeholder="Placa do Caminhão"
-              value={form.placa}
+              placeholder="Nome do dispositivo"
+              value={form.deviceName}
               onChange={handleInputChange}
             />
 
+            <label>Rota</label>
             <input
               type="text"
               name="rota"
               id="rota"
-              placeholder="Rota do Dia"
+              placeholder="Nome da rota"
               value={form.rota}
               onChange={handleInputChange}
             />
+
+            <label>ID do dispositivo</label>
             <input
-              type="hidden"
               name="code"
               id="code"
               value={randomCode(4)}
               onChange={handleInputChange}
               readOnly
             />
+            <p>ID únido usado na identificação do dispositivo</p>
+            <p>(Não pode ser editado)</p>
 
-            <BaseButton type={"submit"}>Cadastrar</BaseButton>
+            <div className="btn-submit">
+              <BaseButton type={"submit"}>Cadastrar</BaseButton>
+            </div>
           </form>
         </div>
       </div>
