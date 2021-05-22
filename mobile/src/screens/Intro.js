@@ -4,17 +4,17 @@ import { RectButton } from "react-native-gesture-handler";
 import { Theme } from "../constants/theme";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/core";
+import { StackActions, useNavigation } from "@react-navigation/core";
 
 const Intro = () => {
   const navigation = useNavigation();
 
   const handleGoMonitor = () => {
-    navigation.navigate("WelcomeMonitor");
+    navigation.dispatch(StackActions.replace("WelcomeMonitor"));
   };
 
   const handleGoTracker = () => {
-    navigation.navigate("WelcomeTracker");
+    navigation.dispatch(StackActions.replace("WelcomeTracker"));
   };
 
   return (

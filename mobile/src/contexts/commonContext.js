@@ -51,7 +51,7 @@ export const CommonProvider = ({ children }) => {
           if (idTruck) {
             firebase
               .database()
-              .ref("trucks/" + idTruck + "/location")
+              .ref("devices/" + idTruck + "/location")
               .update({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude,

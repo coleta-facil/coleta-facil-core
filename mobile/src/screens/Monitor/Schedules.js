@@ -15,9 +15,10 @@ import Modal from "react-native-modalbox";
 import { useRef } from "react";
 import { useState } from "react";
 
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import LogoColetaFacil from "../../assets/icons/LogoColetaFacil";
+import Trash from "../../assets/icons/Trash";
 
 const cardsWeek = [
   {
@@ -36,6 +37,7 @@ const cardsWeek = [
 
 const Schedules = () => {
   const modalRef = useRef();
+  const modalRef2 = useRef();
 
   const [textModal, setSetTextModal] = useState();
   const [timeModal, setTimeModal] = useState();
@@ -67,6 +69,7 @@ const Schedules = () => {
       </View>
       <View style={styles.containerCardsWeek}>
         <Text style={styles.titleCardsWeek}>Dias da semana</Text>
+        <Text style={styles.localeUser}>Seu bairo: São cristóvão</Text>
         <View style={styles.cardsWeek}>
           <ScrollView
             style={{ width: "100%" }}
@@ -129,6 +132,51 @@ const Schedules = () => {
           )}
         </View>
       </Modal>
+      <RectButton onPress={() => modalRef2?.current.open()} style={styles.cardInfo}>
+        <MaterialCommunityIcons name="dump-truck" size={40} color="white" />
+        <Text style={styles.txtCardInfo}>
+          Porque descartar o lixo próximo a passagem do caminhão?
+        </Text>
+      </RectButton>
+      <Modal style={styles.modal2} position={"bottom"} ref={modalRef2} swipeArea={100}>
+        <ScrollView
+          style={{ backgroundColor: "#fff" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.viewWrappedModal2}>
+            <RectButton
+              style={styles.btnTopModal}
+              onPress={() => modalRef2?.current.close()}
+            />
+            <Text
+              style={{
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                fontSize: 16,
+                fontFamily: "PopBold",
+                textAlign: "center",
+              }}
+            >
+              Porque descartar o lixo próximo a passagem do caminhão?
+            </Text>
+            <View style={{ marginVertical: 15 }}>
+              <Trash width={120} height={120} />
+            </View>
+            <View style={styles.textWrapped}>
+              <Text style={styles.textDescriptionInfo}>
+                {`\n`}• Evita acúmulos nas ruas.
+                {`\n`}• Evita o mau cheiro e impede que sejam abertos e espalhados
+                pelo chão.
+                {`\n`}• Ajuda na manutenção da limpeza em frente a sua casa, da rua e de
+                toda cidade.
+                {`\n`}• Evita que crianças, animais e outras pessoas entrem em contato com
+                materiais cortantes ou tóxicos.
+                {`\n`}• Mantêm a cidade limpa e ajudam o ambiente.
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -161,7 +209,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   titleCardsWeek: {
-    marginBottom: 10,
     fontFamily: "PopBold",
     fontSize: 19,
   },
@@ -189,10 +236,22 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     width: 300,
   },
+  viewWrappedModal2: {
+    alignItems: "center",
+    justifyContent: "space-around",
+    paddingLeft: 10,
+    width: Dimensions.get("window").width,
+  },
   modal: {
     alignItems: "center",
     width: 300,
     height: 400,
+    borderRadius: 8,
+  },
+  modal2: {
+    alignItems: "center",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height - 200,
     borderRadius: 8,
   },
   timeTextxModal: {
@@ -225,6 +284,45 @@ const styles = StyleSheet.create({
   },
   txtActiveNotify2: {
     color: Theme.PRIMARY,
+  },
+  localeUser: {
+    marginVertical: 10,
+    fontFamily: "PopRegular",
+    fontSize: 16,
+  },
+  cardInfo: {
+    backgroundColor: Theme.ALTERNATE,
+    position: "absolute",
+    bottom: 30,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    alignSelf: "center",
+    height: 100,
+    borderRadius: 8,
+    width: Dimensions.get("window").width - 30,
+  },
+  txtCardInfo: {
+    paddingLeft: 10,
+    fontFamily: "PopRegular",
+    fontSize: 16,
+    color: Theme.WHITE,
+  },
+  btnTopModal: {
+    width: 70,
+    height: 7,
+    borderRadius: 5,
+    backgroundColor: Theme.GREY2,
+    marginVertical: 10,
+  },
+  textWrapped: {
+    marginHorizontal: 15,
+  },
+  textDescriptionInfo: {
+    fontFamily: "PopRegular",
+    fontSize: 17,
+    lineHeight: 30,
+    textAlign: "left",
   },
 });
 
