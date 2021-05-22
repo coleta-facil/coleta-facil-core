@@ -45,28 +45,3 @@ a {
     color: $orange;
   }
 }
-
-// to move
-.button {
-  @include base-transition;
-  width: max-content;
-  padding: 0.5rem 2.5rem;
-  height: 50px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgb(255, 255, 255);
-  background-color: $green;
-  border: none;
-  border-radius: 9px;
-
-  &:hover {
-    background-color: $orange;
-  }
-
-  @include on-screen-sm {
-    font-size: 1rem;
-    padding: 0.5rem 2rem;
-  }
-}

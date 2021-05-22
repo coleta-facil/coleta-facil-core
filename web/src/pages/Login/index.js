@@ -48,7 +48,7 @@ const Login = () => {
           </div>
 
           <div className="login-panel">
-            <h2>Acesse sua Conta</h2>
+            <h2 className="title">Acesse sua conta</h2>
             <form onSubmit={submitForm} className="form-group">
               <input
                 type="text"
@@ -64,12 +64,14 @@ const Login = () => {
                 name="password"
                 id="pass"
                 placeholder="Senha"
-                minLength="8"
+                minLength="4"
                 value={form.password}
                 onChange={handleInputChange}
               />
 
-              <BaseButton type={"submit"}>Entrar</BaseButton>
+              <BaseButton type="submit" variant="secondary">
+                Entrar
+              </BaseButton>
             </form>
           </div>
         </div>

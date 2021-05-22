@@ -1,16 +1,37 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
 .base-button {
-  width: 100%;
-  max-width: 250px;
-  min-width: max-content;
-  height: 42px;
-  border-radius: 9999px;
+  @include base-transition;
+  width: max-content;
+  height: 50px;
+  padding: 0.5rem 2.5rem;
   font-weight: bold;
-  font-size: 20px;
-  color: rgb(0, 0, 0);
-  background-color: #d0ec43;
-  align-self: center;
-  &:hover {
-    background-color: #d0ec43;
-    transform: scale(0.97);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 9px;
+
+  &.primary {
+    background-color: $green;
+
+    &:hover {
+      background-color: $orange;
+    }
+  }
+
+  &.secondary {
+    background-color: $orange;
+
+    &:hover {
+      background-color: $green;
+    }
+  }
+
+  @include on-screen-sm {
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
   }
 }
