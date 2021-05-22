@@ -79,12 +79,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const truckRef = firebase
+    const devices = firebase
       .database()
-      .ref("trucks")
-      .orderByChild("onActiveRoute")
+      .ref("devices")
+      .orderByChild("onActive")
       .equalTo(true);
-    truckRef.on("value", (snap) => {
+    devices.on("value", (snap) => {
       if (snap.val()) {
         setNumberTrucksOn(Object.keys(snap.val()).length);
         setOnTrucks(snap.val());
@@ -179,7 +179,7 @@ const Home = () => {
 
       <Modal style={styles.modal} position={"bottom"} ref={modalRef} swipeArea={100}>
         <ScrollView
-          style={{ backgroundColor: Theme.WHITE }}
+          style={{ backgroundColor: "#fff" }}
           showsVerticalScrollIndicator={false}
         >
           <SafeAreaView style={styles.viewWrappedModal}>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: Dimensions.get("window").width,
     paddingLeft: 10,
-    backgroundColor: Theme.WHITE,
+    backgroundColor: "#fff",
   },
   btnTopModal: {
     width: 70,
