@@ -111,32 +111,34 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={mapRef}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        loadingEnabled
-        style={styles.map}
-        showsMyLocationButton={false}
-        region={location ? location : null}
-      >
-        {onTrucks &&
-          Object.keys(onTrucks).map((truck, index) => {
-            return (
-              <Marker
-                coordinate={{
-                  latitude: onTrucks[truck].location.lat,
-                  longitude: onTrucks[truck].location.lng,
-                }}
-                anchor={{ x: 0.5, y: 0.5 }}
-                key={index}
-                title={onTrucks[truck].code}
-              >
-                <LogoColetaFacil width={40} height={60} />
-              </Marker>
-            );
-          })}
-      </MapView>
+      {location && (
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation
+          loadingEnabled
+          style={styles.map}
+          showsMyLocationButton={false}
+          initialRegion={location}
+        >
+          {onTrucks &&
+            Object.keys(onTrucks).map((truck, index) => {
+              return (
+                <Marker
+                  coordinate={{
+                    latitude: onTrucks[truck].location.lat,
+                    longitude: onTrucks[truck].location.lng,
+                  }}
+                  anchor={{ x: 0.5, y: 0.5 }}
+                  key={index}
+                  title={onTrucks[truck].code}
+                >
+                  <LogoColetaFacil width={40} height={60} />
+                </Marker>
+              );
+            })}
+        </MapView>
+      )}
 
       <View style={styles.viewTrucksOn}>
         {numberTrucksOn > 0 ? (
@@ -203,7 +205,7 @@ const Home = () => {
                 backgroundColor: "#fff",
                 justifyContent: "center",
                 alignItems: "center",
-                paddingLeft: 4
+                paddingLeft: 4,
               }}
             >
               {iconModal}
@@ -339,7 +341,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Theme.WHITE,
+    backgroundColor: '#fff',
     borderWidth: 2,
     borderColor: Theme.PRIMARY,
   },
