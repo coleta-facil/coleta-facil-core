@@ -183,7 +183,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 70,
     width: "80%",
-    backgroundColor: Theme.GREY,
+    borderWidth: 2,
+    borderColor: Theme.ALTERNATE,
+    backgroundColor: 'transparent',
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
@@ -191,8 +193,8 @@ const styles = StyleSheet.create({
   txtCard: {
     fontFamily: "PopRegular",
     textAlign: "center",
-    marginLeft: 10,
     color: Theme.DARK,
+    paddingHorizontal: 20
   },
   containerCardsWeek: {
     marginTop: 40,
