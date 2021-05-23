@@ -25,9 +25,11 @@ const Dispositivos = () => {
 
   async function submitForm(event) {
     event.preventDefault();
+    formDevice.code = randomCode;
     try {
-      if (!formDevice.name) throw new Error("Dados inválidos!");
-      formDevice.code = randomCode;
+      if (!formDevice.name || !formDevice.code) {
+        throw new Error("Dados inválidos!");
+      }
       await firebase.database().ref("devices").push(formDevice);
       setFormDevice(emptyFormDevice);
       setUpdateCode(true);
@@ -48,16 +50,19 @@ const Dispositivos = () => {
       .on("value", (data) => {
         const dataDB = data.val();
         if (dataDB) {
-          const arrrayDevices = Object.keys(dataDB).map((dev) => {
+          const arrayDevices = Object.keys(dataDB).map((dev) => {
             return dataDB[dev];
           });
-          setDevices([...arrrayDevices]);
+          setDevices([...arrayDevices]);
         }
       });
   }
 
   React.useEffect(() => {
     fetchDevices();
+    return () => {
+      firebase.database().ref("devices").off();
+    };
   }, []);
 
   return (

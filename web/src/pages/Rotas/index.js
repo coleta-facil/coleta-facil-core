@@ -38,17 +38,14 @@ const Rotas = () => {
       if (!formRota.name || !formRota.initialTime || !formRota.finalTime || !formRota.dayWeek) {
         throw new Error("Dados inválidos!");
       }
-
-      setRotas((prev) => [...prev, { ...formRota }]);
+      await firebase.database().ref("routes").push(formRota);
       setFormRota(emptyFormRota);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  async function fetchData() {
-    // setRotas([]); //firebase
-
+  function fetchData() {
     firebase
       .database()
       .ref("devices")
@@ -61,10 +58,27 @@ const Rotas = () => {
           setDevices([...arrayDevices]);
         }
       });
+
+    firebase
+      .database()
+      .ref("routes")
+      .on("value", (data) => {
+        const dataDB = data.val();
+        if (dataDB) {
+          const arrayRotas = Object.keys(dataDB).map((dev) => {
+            return dataDB[dev];
+          });
+          setRotas([...arrayRotas]);
+        }
+      });
   }
 
   React.useEffect(() => {
     fetchData();
+    return () => {
+      firebase.database().ref("devices").off();
+      firebase.database().ref("routes").off();
+    };
   }, []);
 
   return (
