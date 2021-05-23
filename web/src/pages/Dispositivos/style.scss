@@ -1,11 +1,108 @@
 @import "../../assets/styles/variables";
 @import "../../assets/styles/mixins";
 
-.disp-page {
-  .body {
-    text-align: center;
+.dispositivos-page {
+  display: flex;
+  flex-direction: column;
+
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: nowrap;
   }
-  .disp-icon {
-    align-content: center;
+
+  main .aside-form-wrapper {
+    width: 100%;
+    flex: 1;
+    max-width: 600px;
+    height: max-content;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: $dark-green;
+    color: $light;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        margin-bottom: 1rem;
+      }
+
+      label {
+        font-size: 18px;
+        margin-bottom: 0.3rem;
+      }
+
+      input {
+        width: 100%;
+        height: 3rem;
+        padding: 0 1rem;
+        font-size: 20px;
+        border-radius: 5px;
+        margin-bottom: 0.7rem;
+        background-color: #fff;
+      }
+
+      input:read-only {
+        background-color: rgb(235, 235, 235);
+
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          cursor: default;
+        }
+      }
+
+      .btn-submit {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  main .aside-table-wrapper {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1.75rem;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      word-wrap: break-word;
+      text-align: center;
+      font-size: 1.2rem;
+
+      th {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        vertical-align: middle;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      td {
+        width: 100%;
+        padding: 0.5rem;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  @include on-screen-md {
+    main {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }

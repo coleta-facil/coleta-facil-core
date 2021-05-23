@@ -1,34 +1,133 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import logo from "../../assets/icons/logo.svg";
-import separator from "../../assets/icons/separator.svg";
-import "../../assets/styles/global.scss";
+import React, { useState } from "react";
 import "./style.scss";
+import { useHistory } from "react-router-dom";
+import { nanoid } from "nanoid";
 import PageWrapper from "../../components/PageWrapper";
 import Header from "../../components/Header";
 import BaseButton from "../../components/BaseButton";
+import logo from "../../assets/icons/logo.svg";
+
+import firebase from "firebase/app";
+import "firebase/database";
+
+const emptyFormDevice = { name: "", code: "" };
 
 const Dispositivos = () => {
   const history = useHistory();
+  const [devices, setDevices] = useState([]);
+  const [formDevice, setFormDevice] = useState(emptyFormDevice);
+  const [updateCode, setUpdateCode] = useState(false);
+
+  function handleInputChange(event) {
+    const { value, name } = event.target;
+    setFormDevice((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function submitForm(event) {
+    event.preventDefault();
+    formDevice.code = randomCode;
+    try {
+      if (!formDevice.name || !formDevice.code) {
+        throw new Error("Dados inválidos!");
+      }
+      await firebase.database().ref("devices").push(formDevice);
+      setFormDevice(emptyFormDevice);
+      setUpdateCode(true);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  const randomCode = React.useMemo(() => {
+    if (updateCode) setUpdateCode(false);
+    return nanoid(4);
+  }, [updateCode]);
+
+  function fetchDevices() {
+    firebase
+      .database()
+      .ref("devices")
+      .on("value", (data) => {
+        const dataDB = data.val();
+        if (dataDB) {
+          const arrayDevices = Object.keys(dataDB).map((dev) => {
+            return dataDB[dev];
+          });
+          setDevices([...arrayDevices]);
+        }
+      });
+  }
+
+  React.useEffect(() => {
+    fetchDevices();
+    return () => {
+      firebase.database().ref("devices").off();
+    };
+  }, []);
 
   return (
     <PageWrapper footerImage>
-      <div className="disp-page page-content">
+      <div className="dispositivos-page page-content">
         <Header>
-          <BaseButton onClick={() => history.push("/cadastro")}>
-            Cadastrar Usuário
+          <img src={logo} className="logo" style={{ marginRight: "auto" }} alt="logo" />
+          <BaseButton onClick={() => history.push("/rotas")}>Cadastrar rotas</BaseButton>
+          <BaseButton variant="logoff" onClick={() => history.push("/login")}>
+            Sair
           </BaseButton>
-          <BaseButton onClick={() => history.push("/login")}>Sair</BaseButton>
         </Header>
 
-        <div className="body">
-          <img src={logo} className="logo" alt="logo" />
-          <h1>Listagem de Dispositivos: </h1> <br />
-          Id: 5698 <br /> Rota: Bairu <br />
-          <img src={separator} className="disp-icon" alt="sep" />
-          <br />
-          Id: 5697 <br /> Rota: Centro
-        </div>
+        <main>
+          <div className="aside-form-wrapper">
+            <form onSubmit={submitForm}>
+              <h2 className="title">Cadastrar Dispositivos</h2>
+              <label>Nome do dispositivo (apelido)</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Nome"
+                autoComplete="off"
+                value={formDevice.name}
+                onChange={handleInputChange}
+              />
+
+              <label>ID do dispositivo (não pode ser editado)</label>
+              <input name="code" id="code" value={randomCode} readOnly />
+              <p>
+                ID únido usado na identificação do dispositivo <br />
+              </p>
+
+              <div className="btn-submit">
+                <BaseButton type={"submit"}>Cadastrar</BaseButton>
+              </div>
+            </form>
+          </div>
+
+          <div className="aside-table-wrapper">
+            <h2 className="title">Dispositivos cadastrados</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>ID</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {devices.map((device) => (
+                  <tr key={device.code}>
+                    <td>{device.name}</td>
+                    <td>{device.code}</td>
+                  </tr>
+                ))}
+                {!devices.length && (
+                  <tr>
+                    <td colSpan="2">Nenhum dispositivo encontrado</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </main>
       </div>
     </PageWrapper>
   );

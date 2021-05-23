@@ -30,11 +30,9 @@ const Login = () => {
     var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     if (!reg.test(email)) alert("Email inválido!");
     else {
-      const auth = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, pass);
+      const auth = await firebase.auth().signInWithEmailAndPassword(email, pass);
       console.log(auth);
-      history.push("/routes");
+      history.push("/dispositivos");
     }
   }
 
