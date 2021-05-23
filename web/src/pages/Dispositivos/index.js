@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import "./style.scss";
 import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
-import "./style.scss";
 import PageWrapper from "../../components/PageWrapper";
 import Header from "../../components/Header";
 import BaseButton from "../../components/BaseButton";
@@ -12,7 +12,7 @@ import "firebase/database";
 
 const emptyFormDevice = { name: "", code: "" };
 
-const Rotas = () => {
+const Dispositivos = () => {
   const history = useHistory();
   const [devices, setDevices] = useState([]);
   const [formDevice, setFormDevice] = useState(emptyFormDevice);
@@ -21,21 +21,6 @@ const Rotas = () => {
   function handleInputChange(event) {
     const { value, name } = event.target;
     setFormDevice((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function fetchDevices() {
-    await firebase
-      .database()
-      .ref("devices")
-      .on("value", (data) => {
-        const dataDB = data.val();
-        if (dataDB) {
-          const arrrayDevices = Object.keys(dataDB).map((dev) => {
-            return dataDB[dev];
-          });
-          setDevices([...arrrayDevices]);
-        }
-      });
   }
 
   async function submitForm(event) {
@@ -56,16 +41,31 @@ const Rotas = () => {
     return nanoid(4);
   }, [updateCode]);
 
+  function fetchDevices() {
+    firebase
+      .database()
+      .ref("devices")
+      .on("value", (data) => {
+        const dataDB = data.val();
+        if (dataDB) {
+          const arrrayDevices = Object.keys(dataDB).map((dev) => {
+            return dataDB[dev];
+          });
+          setDevices([...arrrayDevices]);
+        }
+      });
+  }
+
   React.useEffect(() => {
     fetchDevices();
   }, []);
 
   return (
     <PageWrapper footerImage>
-      <div className="rotas-page page-content">
+      <div className="dispositivos-page page-content">
         <Header>
-          <img src={logo} className="logo" alt="logo" />
-          <BaseButton onClick={() => history.push("/cadastro")}>Cadastrar usuário</BaseButton>
+          <img src={logo} className="logo" style={{ marginRight: "auto" }} alt="logo" />
+          <BaseButton onClick={() => history.push("/rotas")}>Cadastrar rotas</BaseButton>
           <BaseButton variant="logoff" onClick={() => history.push("/login")}>
             Sair
           </BaseButton>
@@ -74,6 +74,7 @@ const Rotas = () => {
         <main>
           <div className="aside-form-wrapper">
             <form onSubmit={submitForm}>
+              <h2 className="title">Cadastrar Dispositivos</h2>
               <label>Nome do dispositivo (apelido)</label>
               <input
                 type="text"
@@ -127,4 +128,4 @@ const Rotas = () => {
   );
 };
 
-export default Rotas;
+export default Dispositivos;
