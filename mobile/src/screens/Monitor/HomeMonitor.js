@@ -39,7 +39,7 @@ const Home = () => {
 
   const navigation = useNavigation();
 
-  const { locationUser } = useContext(CommonContext);
+  const { locationUser, callForegroundGeolocation } = useContext(CommonContext);
 
   const modalRef = useRef();
   const modal2Ref = useRef();
@@ -82,7 +82,7 @@ const Home = () => {
   useEffect(() => {
     async function callForeground() {
       calledForeground.current = true;
-      callForegroundGeolocation(true);
+      callForegroundGeolocation(false);
     }
     if (!calledForeground.current) callForeground();
   }, []);
