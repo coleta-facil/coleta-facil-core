@@ -139,7 +139,7 @@ const SelectiveCollect = () => {
                 lineHeight: 20,
                 marginTop: 10,
                 marginBottom: 50,
-                textAlign: "center",
+                textAlign: "justify",
               }}
             >
               {`\t`}Todo resíduo coletado no município, tanto doméstico quanto hospitalar,
