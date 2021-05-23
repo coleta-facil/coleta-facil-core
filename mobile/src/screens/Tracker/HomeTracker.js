@@ -10,7 +10,7 @@ const HomeTracker = () => {
   const mapRef = useRef();
   const calledBackground = useRef();
   const [activedLoc, setActivedLoc] = useState(false);
-  const { locationUser, callForegroundGeolocation } = useContext(CommonContext);
+  const { locationUser } = useContext(CommonContext);
 
   const [location, setLocation] = useState();
 
@@ -25,14 +25,6 @@ const HomeTracker = () => {
       setLocation(region);
     }
   }, [locationUser]);
-
-  useEffect(() => {
-    async function callForeground() {
-      calledBackground.current = true;
-      callForegroundGeolocation(true);
-    }
-    if (!calledBackground.current) callForeground();
-  }, []);
 
   const toggleLoc = () => {
     setActivedLoc(true);

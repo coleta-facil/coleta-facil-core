@@ -10,12 +10,7 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Theme } from "../../constants/theme";
 
-import {
-  Entypo,
-  Feather,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { useContext } from "react";
 import { CommonContext } from "../../contexts/commonContext";
@@ -30,32 +25,19 @@ import LogoColetaFacil from "../../assets/icons/LogoColetaFacil";
 import Recycle from "../../assets/icons/Recycle";
 import { useNavigation } from "@react-navigation/core";
 
-const cards = [
-  {
-    icon: <Feather name="trash-2" size={24} color="white" />,
-    text: "Dicas de separação do lixo.",
-  },
-  {
-    icon: <MaterialCommunityIcons name="trophy-broken" size={24} color="white" />,
-    text: "Embrulhe sempre cacos de vidro.",
-  },
-  {
-    icon: <Entypo name="keyboard" size={24} color="white" />,
-    text: "Separe sempre os eletrônicos.",
-  },
-];
+import { getIconCards, Cards } from "../../constants/cardsHome";
 
 const Home = () => {
   const [location, setlocation] = useState();
   const [iconModal, setIconModal] = useState("");
   const [textModal, setTextModal] = useState("");
+  const [descriptionCard, setDescriptionCard] = useState("");
   const [onTrucks, setOnTrucks] = useState();
   const [numberTrucksOn, setNumberTrucksOn] = useState(0);
 
-  const calledForeground = useRef();
   const navigation = useNavigation();
 
-  const { locationUser, callForegroundGeolocation } = useContext(CommonContext);
+  const { locationUser } = useContext(CommonContext);
 
   const modalRef = useRef();
   const modal2Ref = useRef();
@@ -72,15 +54,6 @@ const Home = () => {
       setlocation(region);
     }
   }, [locationUser]);
-
-  useEffect(() => {
-    async function callForeground() {
-      calledForeground.current = true;
-      console.log("CHAMOU");
-      callForegroundGeolocation(false);
-    }
-    if (!calledForeground.current) callForeground();
-  }, []);
 
   useEffect(() => {
     const devices = firebase
@@ -115,12 +88,14 @@ const Home = () => {
   };
 
   const openModalInfo = (card) => {
-    setIconModal(<Entypo name="" size={40} color="black" />);
+    setIconModal(getIconCards(70, card.type));
     setTextModal(card.text);
+    setDescriptionCard(card.description);
     modalRef?.current.open();
   };
 
   const goNavigate = () => {
+    modalRef?.current.close();
     navigation.navigate("SelectiveCollect");
   };
 
@@ -173,12 +148,12 @@ const Home = () => {
         showsHorizontalScrollIndicator={false}
         style={styles.containerScroll}
       >
-        {cards.map((card, i) => (
+        {Cards.map((card, i) => (
           <RectButton
             key={card.text + i}
             onPress={() => openModalInfo(card)}
             style={
-              i === cards.length - 1
+              i === Cards.length - 1
                 ? { ...styles.card, ...styles.lastCard }
                 : { ...styles.card }
             }
@@ -196,16 +171,25 @@ const Home = () => {
           style={{ backgroundColor: "#fff" }}
           showsVerticalScrollIndicator={false}
         >
-          <SafeAreaView style={styles.viewWrappedModal}>
+          <View style={styles.viewWrappedModal}>
+            <View
+              style={{
+                height: 90,
+                backgroundColor: Theme.SECONDARY,
+                position: "absolute",
+                width: Dimensions.get("window").width,
+              }}
+            />
             <RectButton
               style={styles.btnTopModal}
               onPress={() => modalRef?.current.close()}
             />
             <View style={{ marginTop: 25 }}>{iconModal}</View>
             <View style={{ marginTop: 25 }}>
-              <Text>{textModal}</Text>
+              <Text style={styles.titleCard}>{textModal}</Text>
+              <Text style={styles.description}>{descriptionCard}</Text>
             </View>
-          </SafeAreaView>
+          </View>
         </ScrollView>
       </Modal>
       <Modal
@@ -216,26 +200,34 @@ const Home = () => {
         swipeArea={100}
         backdropPressToClose={false}
       >
-        <View style={styles.viewWrappedModal2}>
-          <Recycle width={120} width={120} />
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.textCollect}>
-              Você sabia que sua cidade possui coleta seletiva?
+        <View style={{ height: 200, justifyContent: "center", alignItems: "center" }}>
+          <Recycle width={100} width={100} />
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            height: 300,
+            backgroundColor: Theme.PRIMARY,
+            width: 350,
+            paddingTop: 25,
+          }}
+        >
+          <Text style={styles.textCollect}>
+            Você sabia que sua cidade possui coleta seletiva?
+          </Text>
+          <RectButton onPress={goNavigate} style={styles.btnSaberMais}>
+            <Text style={{ fontFamily: "PopBold", color: Theme.PRIMARY, fontSize: 18 }}>
+              Quero saber mais
             </Text>
-            <RectButton onPress={goNavigate} style={styles.btnSaberMais}>
-              <Text style={{ fontFamily: "PopBold", color: Theme.WHITE, fontSize: 18 }}>
-                Quero saber mais
-              </Text>
-            </RectButton>
-            <RectButton
-              onPress={() => modal2Ref?.current.close()}
-              style={{ marginTop: 15 }}
-            >
-              <Text style={{ fontFamily: "PopRegular", color: "#FF1111", fontSize: 18 }}>
-                Dispensar
-              </Text>
-            </RectButton>
-          </View>
+          </RectButton>
+          <RectButton
+            onPress={() => modal2Ref?.current.close()}
+            style={{ marginTop: 35 }}
+          >
+            <Text style={{ fontFamily: "PopRegular", color: Theme.DARK, fontSize: 18 }}>
+              Dispensar
+            </Text>
+          </RectButton>
         </View>
       </Modal>
     </View>
@@ -266,12 +258,14 @@ const styles = StyleSheet.create({
     width: 350,
     borderRadius: 8,
     backgroundColor: Theme.WHITE,
+    alignItems: "center",
   },
+
   btnTopModal: {
     width: 70,
     height: 7,
     borderRadius: 5,
-    backgroundColor: Theme.GREY2,
+    backgroundColor: Theme.WHITE,
     marginVertical: 10,
   },
   map: {
@@ -334,6 +328,7 @@ const styles = StyleSheet.create({
     fontFamily: "PopBold",
     fontSize: 18,
     textAlign: "center",
+    color: Theme.WHITE,
   },
   btnSaberMais: {
     marginTop: 50,
@@ -344,7 +339,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Theme.PRIMARY,
+    backgroundColor: Theme.WHITE,
+  },
+  titleCard: {
+    alignSelf: "center",
+    fontFamily: "PopBold",
+    fontSize: 20,
+  },
+  description: {
+    marginTop: 25,
+    paddingHorizontal: 20,
+    lineHeight: 25,
+    fontFamily: "PopRegular",
+    fontSize: 17
   },
 });
 

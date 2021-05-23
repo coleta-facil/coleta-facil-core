@@ -13,30 +13,35 @@ export const CommonProvider = ({ children }) => {
   const [idTruck, setIdTruck] = useState();
 
   const watcher = useRef();
+  const calledForeground = useRef();
 
-  async function callForegroundGeolocation(trackerMode) {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    console.log(status);
-    if (status !== "granted") {
-      Alert.alert(
-        "Alerta!",
-        "Para melhor funcionamento do app, prcisamos da sua localização 😀",
-        [
-          {
-            text: "Abrir configurações",
-            style: "default",
-            onPress: () => Linking.openSettings(),
-          },
-          {
-            text: "Negar",
-            style: "destructive",
-          },
-        ]
-      );
-    } else {
-      StartForegroundGeolocation(trackerMode);
+  useEffect(() => {
+    async function callForegroundGeolocation(trackerMode) {
+      calledForeground.current = true;
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      console.log(status);
+      if (status !== "granted") {
+        Alert.alert(
+          "Alerta!",
+          "Para melhor funcionamento do app, prcisamos da sua localização 😀",
+          [
+            {
+              text: "Abrir configurações",
+              style: "default",
+              onPress: () => Linking.openSettings(),
+            },
+            {
+              text: "Negar",
+              style: "destructive",
+            },
+          ]
+        );
+      } else {
+        StartForegroundGeolocation(trackerMode);
+      }
     }
-  }
+    if (!calledForeground.current) callForegroundGeolocation();
+  }, []);
 
   const StartForegroundGeolocation = async (trackerMode) => {
     console.log("Fetching Location");
@@ -78,7 +83,6 @@ export const CommonProvider = ({ children }) => {
         locationUser,
         setTokenCx,
         setIdTruck,
-        callForegroundGeolocation,
       }}
     >
       {children}

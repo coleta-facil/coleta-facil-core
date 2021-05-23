@@ -31,16 +31,16 @@ const InputToken = () => {
     if (!disableButton.current) {
       disableButton.current = true;
       if (token.length > 0) {
-        const trucksRef = firebase.database().ref("trucks/");
-        trucksRef.once("value", async (data) => {
+        const devicesRef = firebase.database().ref("devices/");
+        devicesRef.once("value", async (data) => {
           const db = data.val();
           if (db) {
             const validateCode = Object.keys(db)
-              .filter((truck) => db[truck].token === token)
-              .map((data) => {
+              .filter((data) => db[data].code === token)
+              .map((ddata) => {
                 setTokenCx(token);
-                setIdTruck(data);
-                return db[data];
+                setIdTruck(ddata);
+                return db[ddata];
               });
 
             if (validateCode.length > 0) {
