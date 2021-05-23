@@ -58,14 +58,6 @@ const Schedules = () => {
       <ScreenTitle align="left">Fique atento!</ScreenTitle>
       <View style={styles.cardTop}>
         <Text style={styles.txtCard}>O caminhão estará em funcionamento hoje!</Text>
-        {/* <RectButton>
-          <Ionicons
-            style={{ marginRight: 40 }}
-            name="notifications-outline"
-            size={28}
-            color={Theme.ALTERNATE}
-          />
-        </RectButton> */}
       </View>
       <View style={styles.containerCardsWeek}>
         <Text style={styles.titleCardsWeek}>Dias da semana</Text>
@@ -165,8 +157,8 @@ const Schedules = () => {
             <View style={styles.textWrapped}>
               <Text style={styles.textDescriptionInfo}>
                 {`\n`}• Evita acúmulos nas ruas.
-                {`\n`}• Evita o mau cheiro e impede que sejam abertos e espalhados
-                pelo chão.
+                {`\n`}• Evita o mau cheiro e impede que sejam abertos e espalhados pelo
+                chão.
                 {`\n`}• Ajuda na manutenção da limpeza em frente a sua casa, da rua e de
                 toda cidade.
                 {`\n`}• Evita que crianças, animais e outras pessoas entrem em contato com
@@ -186,7 +178,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTop: {
-    elevation: 10,
     marginTop: 20,
     borderRadius: 8,
     alignSelf: "center",
@@ -199,7 +190,6 @@ const styles = StyleSheet.create({
   },
   txtCard: {
     fontFamily: "PopRegular",
-    //paddingHorizontal: 25,
     textAlign: "center",
     marginLeft: 10,
     color: Theme.DARK,

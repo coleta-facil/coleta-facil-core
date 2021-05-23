@@ -194,7 +194,20 @@ const Home = () => {
               style={styles.btnTopModal}
               onPress={() => modalRef?.current.close()}
             />
-            <View style={{ marginTop: 25 }}>{iconModal}</View>
+            <View
+              style={{
+                marginTop: 25,
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "#fff",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingLeft: 4
+              }}
+            >
+              {iconModal}
+            </View>
             <View style={{ marginTop: 25 }}>
               <Text style={styles.titleCard}>{textModal}</Text>
               <Text style={styles.description}>{descriptionCard}</Text>
