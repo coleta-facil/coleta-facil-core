@@ -25,7 +25,7 @@ const InputToken = () => {
   const [token, setToken] = useState("");
   const disableButton = useRef();
 
-  const { setTokenCx, setIdTruck } = useContext(CommonContext);
+  const { setTokenCx, setIdDevice } = useContext(CommonContext);
 
   const handleToken = () => {
     if (!disableButton.current) {
@@ -39,7 +39,7 @@ const InputToken = () => {
               .filter((data) => db[data].code === token)
               .map((ddata) => {
                 setTokenCx(token);
-                setIdTruck(ddata);
+                setIdDevice(ddata);
                 return db[ddata];
               });
 

@@ -6,11 +6,14 @@ import { Theme } from "../../constants/theme";
 
 import { CommonContext } from "../../contexts/commonContext";
 
+import firebase from "firebase/app";
+import "firebase/database";
+
 const HomeTracker = () => {
   const mapRef = useRef();
-  const calledBackground = useRef();
+  const calledForeground = useRef();
   const [activedLoc, setActivedLoc] = useState(false);
-  const { locationUser } = useContext(CommonContext);
+  const { locationUser, idDevice, callForegroundGeolocation } = useContext(CommonContext);
 
   const [location, setLocation] = useState();
 
@@ -26,8 +29,24 @@ const HomeTracker = () => {
     }
   }, [locationUser]);
 
-  const toggleLoc = () => {
-    setActivedLoc(true);
+  useEffect(() => {
+    async function callForeground() {
+      calledForeground.current = true;
+      callForegroundGeolocation(true);
+    }
+    if (!calledForeground.current) callForeground();
+  }, []);
+
+  const toggleLoc = async () => {
+    if (idDevice) {
+      await firebase
+        .database()
+        .ref("devices/" + idDevice + "/")
+        .update({
+          onActive: !activedLoc,
+        });
+        setActivedLoc((prev) => !prev);
+      }
   };
 
   return (

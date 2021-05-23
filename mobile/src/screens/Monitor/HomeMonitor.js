@@ -35,6 +35,8 @@ const Home = () => {
   const [onTrucks, setOnTrucks] = useState();
   const [numberTrucksOn, setNumberTrucksOn] = useState(0);
 
+  const calledForeground = useRef();
+
   const navigation = useNavigation();
 
   const { locationUser } = useContext(CommonContext);
@@ -75,6 +77,14 @@ const Home = () => {
     setTimeout(() => {
       modal2Ref?.current.open();
     }, 1000);
+  }, []);
+
+  useEffect(() => {
+    async function callForeground() {
+      calledForeground.current = true;
+      callForegroundGeolocation(true);
+    }
+    if (!calledForeground.current) callForeground();
   }, []);
 
   const centerFollowMap = () => {
@@ -351,7 +361,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     lineHeight: 25,
     fontFamily: "PopRegular",
-    fontSize: 17
+    fontSize: 17,
   },
 });
 

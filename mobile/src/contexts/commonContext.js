@@ -10,38 +10,35 @@ export const CommonContext = createContext({});
 export const CommonProvider = ({ children }) => {
   const [locationUser, setLocationUser] = useState();
   const [token, setTokenCx] = useState();
-  const [idTruck, setIdTruck] = useState();
+  const [idDevice, setIdDevice] = useState();
 
   const watcher = useRef();
   const calledForeground = useRef();
 
-  useEffect(() => {
-    async function callForegroundGeolocation(trackerMode) {
-      calledForeground.current = true;
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      console.log(status);
-      if (status !== "granted") {
-        Alert.alert(
-          "Alerta!",
-          "Para melhor funcionamento do app, prcisamos da sua localização 😀",
-          [
-            {
-              text: "Abrir configurações",
-              style: "default",
-              onPress: () => Linking.openSettings(),
-            },
-            {
-              text: "Negar",
-              style: "destructive",
-            },
-          ]
-        );
-      } else {
-        StartForegroundGeolocation(trackerMode);
-      }
+  async function callForegroundGeolocation(trackerMode) {
+    calledForeground.current = true;
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    console.log(status);
+    if (status !== "granted") {
+      Alert.alert(
+        "Alerta!",
+        "Para melhor funcionamento do app, prcisamos da sua localização 😀",
+        [
+          {
+            text: "Abrir configurações",
+            style: "default",
+            onPress: () => Linking.openSettings(),
+          },
+          {
+            text: "Negar",
+            style: "destructive",
+          },
+        ]
+      );
+    } else {
+      StartForegroundGeolocation(trackerMode);
     }
-    if (!calledForeground.current) callForegroundGeolocation();
-  }, []);
+  }
 
   const StartForegroundGeolocation = async (trackerMode) => {
     console.log("Fetching Location");
@@ -49,14 +46,14 @@ export const CommonProvider = ({ children }) => {
       watcher.current = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.BestForNavigation,
-          distanceInterval: 10,
+          distanceInterval: 1,
         },
         (location) => {
           setLocationUser(location.coords);
-          if (idTruck) {
+          if (idDevice) {
             firebase
               .database()
-              .ref("devices/" + idTruck + "/location")
+              .ref("devices/" + idDevice + "/location")
               .update({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude,
@@ -82,7 +79,9 @@ export const CommonProvider = ({ children }) => {
       value={{
         locationUser,
         setTokenCx,
-        setIdTruck,
+        setIdDevice,
+        idDevice,
+        callForegroundGeolocation,
       }}
     >
       {children}
